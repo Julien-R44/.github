@@ -9,7 +9,5 @@ jobs:
         with:
           node-version: 22.x
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
       - run: pnpm install
       - run: pnpm typecheck
