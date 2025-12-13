@@ -6,13 +6,23 @@ on:
         type: boolean
         default: false
         required: false
+      node-versions:
+        description: 'Node versions to test (JSON array)'
+        type: string
+        default: '["lts/iron", "latest"]'
+        required: false
+      node-versions-windows:
+        description: 'Node versions to test on Windows (JSON array)'
+        type: string
+        default: '["lts/iron"]'
+        required: false
 
 jobs:
   test_linux:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ["lts/iron", "latest"]
+        node-version: ${{ fromJson(inputs.node-versions) }}
 
     steps:
     - name: Checkout code
@@ -36,9 +46,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        node-version: ["lts/iron", "latest"]
-        exclude:
-          - node-version: latest
+        node-version: ${{ fromJson(inputs.node-versions-windows) }}
 
     steps:
     - name: Checkout code
