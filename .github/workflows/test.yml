@@ -4,7 +4,7 @@ on:
       disable-windows:
         description: Disable running tests on Windows
         type: boolean
-        default: false
+        default: true
         required: false
       node-versions:
         description: 'Node versions to test (JSON array)'
