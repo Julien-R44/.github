@@ -11,11 +11,6 @@ on:
         type: string
         default: '["lts/iron", "latest"]'
         required: false
-      node-versions-windows:
-        description: 'Node versions to test on Windows (JSON array)'
-        type: string
-        default: '["lts/iron"]'
-        required: false
 
 jobs:
   test_linux:
@@ -46,7 +41,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        node-version: ${{ fromJson(inputs.node-versions-windows) }}
+        node-version: ${{ fromJson(inputs.node-versions) }}
 
     steps:
     - name: Checkout code
