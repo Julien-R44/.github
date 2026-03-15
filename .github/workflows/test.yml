@@ -9,7 +9,7 @@ on:
       node-versions:
         description: 'Node versions to test (JSON array)'
         type: string
-        default: '["lts/iron", "latest"]'
+        default: '["latest"]'
         required: false
 
 jobs:
