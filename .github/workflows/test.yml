@@ -19,9 +19,9 @@ jobs:
       matrix:
         node-version: ${{ fromJson(inputs.node-versions) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version != 'auto' && matrix.node-version || '' }}
           node-version-file: ${{ matrix.node-version == 'auto' && 'package.json' || '' }}
@@ -36,9 +36,9 @@ jobs:
       matrix:
         node-version: ${{ fromJson(inputs.node-versions) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version != 'auto' && matrix.node-version || '' }}
           node-version-file: ${{ matrix.node-version == 'auto' && 'package.json' || '' }}
