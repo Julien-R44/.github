@@ -7,9 +7,9 @@ on:
         default: true
         required: false
       node-versions:
-        description: 'Node versions to test (JSON array)'
+        description: 'Node versions to test (JSON array). Use "auto" to read from package.json.'
         type: string
-        default: '["latest"]'
+        default: '["auto"]'
         required: false
 
 jobs:
@@ -18,23 +18,16 @@ jobs:
     strategy:
       matrix:
         node-version: ${{ fromJson(inputs.node-versions) }}
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    - uses: pnpm/action-setup@v4
-
-    - name: Install dependencies
-      run: pnpm install
-
-    - name: Run tests
-      run: pnpm test
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version != 'auto' && matrix.node-version || '' }}
+          node-version-file: ${{ matrix.node-version == 'auto' && 'package.json' || '' }}
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm test
 
   test_windows:
     if: ${{ !inputs.disable-windows }}
@@ -42,20 +35,13 @@ jobs:
     strategy:
       matrix:
         node-version: ${{ fromJson(inputs.node-versions) }}
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    - uses: pnpm/action-setup@v4
-
-    - name: Install dependencies
-      run: pnpm install
-
-    - name: Run tests
-      run: pnpm test
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version != 'auto' && matrix.node-version || '' }}
+          node-version-file: ${{ matrix.node-version == 'auto' && 'package.json' || '' }}
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm test
